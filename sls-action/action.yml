@@ -1,10 +1,11 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Serverless Framework'
+description: 'Runs Serverless Framework commands.'
+author: 'CSE'
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  yamlFile:
+    description: 'The serverless yaml file'
+    required: true
+    default: 'serverless.yml'
 runs:
   using: 'node12'
   main: 'lib/main.js'
