@@ -1,7 +1,7 @@
 .taskkey
 
 # ignore generated .js
-**/*.js
+lib/
 
 __tests__/runner/*
 
