@@ -34,8 +34,9 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.0.0",
-    "@actions/exec": "^1.0.0",
+    "@actions/core": "^1.2.0",
+    "@actions/exec": "^1.0.1",
+    "actions-secret-parser": "^1.0.2",
     "serverless": "^1.56.1"
   },
   "devDependencies": {

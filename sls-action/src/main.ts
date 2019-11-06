@@ -1,6 +1,7 @@
 import * as core from '@actions/core';
 import { SlsCli } from './slsCli';
 import { SlsOptions } from './slsOptions';
+import { CredentialParser } from './CredentialParser';
 
 async function run() {
   try {
@@ -10,10 +11,16 @@ async function run() {
     const yamlFile = core.getInput('yamlFile');
     core.debug(`yamlFile=${yamlFile}`);
 
+    const creds = core.getInput('credentials', { required: true });
+
     const slsOptions: SlsOptions = {
       command: 'version',
-      yamlFile: yamlFile
+      yamlFile: yamlFile,
+      credentials: creds,
     }
+
+    const credentialParser = new CredentialParser(creds);
+    credentialParser.setLoginVariables();
 
     const output = await SlsCli.run(slsOptions);
     console.log(`serverless stdout:\n\n${output.stdout}`);

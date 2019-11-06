@@ -5,7 +5,8 @@ test('sls cli can be invoked', async () => {
   jest.setTimeout(15000);
   const slsOptions: SlsOptions = {
     command: 'version',
-    yamlFile: undefined
+    yamlFile: undefined,
+    credentials: ''
   }
 
   const output = await SlsCli.run(slsOptions);
