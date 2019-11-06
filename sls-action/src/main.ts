@@ -1,14 +1,26 @@
 import * as core from '@actions/core';
-import {wait} from './wait'
+import { SlsCli } from './slsCli';
+import { SlsOptions } from './slsOptions';
 
 async function run() {
   try {
-    const ms = core.getInput('milliseconds');
-    console.log(`Waiting ${ms} milliseconds ...`)
+    const version = require('../package.json').version;
+    console.log(`Running serverless action v${version}...`);
 
-    core.debug((new Date()).toTimeString())
-    await wait(parseInt(ms, 10));
-    core.debug((new Date()).toTimeString())
+    const yamlFile = core.getInput('yamlFile');
+    core.debug(`yamlFile=${yamlFile}`);
+
+    const slsOptions: SlsOptions = {
+      command: 'version',
+      yamlFile: yamlFile
+    }
+
+    const output = await SlsCli.run(slsOptions);
+    console.log(`serverless stdout:\n\n${output.stdout}`);
+
+    if (output.stderr) {
+      core.setFailed(output.stderr);
+    }
 
     core.setOutput('time', new Date().toTimeString());
   } catch (error) {

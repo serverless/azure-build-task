@@ -15,29 +15,29 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const core = __importStar(require("@actions/core"));
-const slsCli_1 = require("./slsCli");
-function run() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const version = require('../package.json').version;
-            console.log(`Running serverless action v${version}...`);
-            const yamlFile = core.getInput('yamlFile');
-            core.debug(`yamlFile=${yamlFile}`);
-            const slsOptions = {
-                command: 'version',
-                yamlFile: yamlFile
+const exec = __importStar(require("@actions/exec"));
+class SlsCli {
+    static run(slsOptions) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // TODO: sniff test params; possibly put isValid method on SlsOptions
+            let output = '';
+            let errOutput = '';
+            const execOptions = {
+                listeners: {
+                    stdout: (data) => {
+                        output += data.toString();
+                    },
+                    stderr: (data) => {
+                        errOutput += data.toString();
+                    }
+                }
             };
-            const output = yield slsCli_1.SlsCli.run(slsOptions);
-            console.log(`serverless stdout:\n\n${output.stdout}`);
-            if (output.stderr) {
-                core.setFailed(output.stderr);
-            }
-            core.setOutput('time', new Date().toTimeString());
-        }
-        catch (error) {
-            core.setFailed(error.message);
-        }
-    });
+            yield exec.exec("npx", ["sls", slsOptions.command], execOptions);
+            return {
+                stdout: output,
+                stderr: errOutput
+            };
+        });
+    }
 }
-run();
+exports.SlsCli = SlsCli;
