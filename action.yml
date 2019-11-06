@@ -1,0 +1,11 @@
+name: 'Serverless Framework'
+description: 'Runs Serverless Framework commands.'
+author: 'Microsoft - Commercial Software Engineering (CSE)'
+inputs:
+  yamlFile:
+    description: 'The serverless yaml file'
+    required: true
+    default: 'serverless.yml'
+runs:
+  using: 'node12'
+  main: 'sls-action/lib/main.js'
