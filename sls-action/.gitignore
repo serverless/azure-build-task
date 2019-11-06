@@ -94,3 +94,6 @@ typings/
 
 # OSX
 .DS_Store
+
+# JS output
+lib/
