@@ -6,6 +6,9 @@ inputs:
     description: 'The serverless yaml file'
     required: true
     default: 'serverless.yml'
+  credentials: 
+    description: 'The login credentials for deploying'
+    required: true
 runs:
   using: 'node12'
   main: 'lib/main.js'
