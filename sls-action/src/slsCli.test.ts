@@ -4,7 +4,7 @@ import { SlsOptions } from '../src/slsOptions';
 test('sls cli can be invoked', async () => {
   jest.setTimeout(15000);
   const slsOptions: SlsOptions = {
-    command: 'version',
+    command: '--version',
     yamlFile: undefined,
     credentials: ''
   }
